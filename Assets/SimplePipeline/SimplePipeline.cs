@@ -9,10 +9,11 @@ public class SimplePipeline : RenderPipeline
     {
         ScriptableCullingParameters cullParams;
         foreach (var camera in cameras)
-        { 
+        {
             context.SetupCameraProperties(camera);
             if (!camera.TryGetCullingParameters(out cullParams))
                 continue;
+        }
 
 
 

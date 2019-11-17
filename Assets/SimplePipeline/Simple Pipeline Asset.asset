@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d8d9a67cc024db4baacc27b90d6fcb4, type: 3}
-  m_Name: New Simple Pipeline Asset
+  m_Name: Simple Pipeline Asset
   m_EditorClassIdentifier: 
