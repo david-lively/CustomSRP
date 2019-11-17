@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-[CreateAssetMenu(menuName ="Rendering/My Pipeline")]
-public class MyPipelineAsset : RenderPipelineAsset
+[CreateAssetMenu(menuName ="Rendering/Simple Pipeline")]
+public class SimplePipelineAsset : RenderPipelineAsset
 {
     protected override RenderPipeline CreatePipeline()
     {
-        return new MyPipeline();
+        return new SimplePipeline();
     }
 }
