@@ -36,10 +36,8 @@ public class SimplePipeline : RenderPipeline
         {
             if (!camera.TryGetCullingParameters(out cullParams))
                 continue;
-
             // notify engine and plugins that this camera is starting to render.
             BeginCameraRendering(context, camera);
-
             // configure view matrix, clipping, etc.
             context.SetupCameraProperties(camera);
             {
@@ -51,36 +49,24 @@ public class SimplePipeline : RenderPipeline
             // cull for this camera
             var cullResults = context.Cull(ref cullParams);
 
-
-
             // Draw opaque objects
             var drawSettings = new DrawingSettings(new ShaderTagId("SRPDefaultUnlit"), new SortingSettings(camera));
-            //drawSettings.sortingSettings = new SortingSettings(camera);
-
             var filterSettings = FilteringSettings.defaultValue;
             filterSettings.renderQueueRange = RenderQueueRange.opaque;
             context.DrawRenderers(cullResults, ref drawSettings, ref filterSettings);
-
             // Draw skybox
             context.DrawSkybox(camera);
-
-
             // Draw transparent objects
             drawSettings.sortingSettings = new SortingSettings(camera) { criteria = SortingCriteria.CommonTransparent };
             filterSettings.renderQueueRange = RenderQueueRange.transparent;
             context.DrawRenderers(cullResults, ref drawSettings, ref filterSettings);
-
             /*
-             * draw anything that's left. Materials are mutually exclusive between SRP and built-in
-             * pipelines, so this will only draw objects that have not already been drawn.
+             * draw anything with incompatible materials with an error shader.
              */
             DrawWithDefaultPipeline(context, camera, cullResults);
-
             // Notify engine, plugins, etc. that this camera is finished rendering.
             EndCameraRendering(context, camera);
-
         }
-
         context.Submit();
         EndFrameRendering(context, cameras);
     }
